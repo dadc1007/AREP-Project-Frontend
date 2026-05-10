@@ -3,6 +3,8 @@ import { TenantSelector } from "../components/TenantSelector";
 import { FileUploader } from "../components/FileUploader";
 import { QuestionBox } from "../components/QuestionBox";
 import { AnswerViewer } from "../components/AnswerViewer";
+import { TenantDashboard } from "../components/TenantDashboard";
+import { TenantConfigPanel } from "../components/TenantConfigPanel";
 import type { AskResponse } from "../types/api";
 
 function App() {
@@ -39,6 +41,10 @@ function App() {
             )}
           </div>
 
+          {selectedTenant && (
+            <TenantConfigPanel key={selectedTenant} tenantId={selectedTenant} />
+          )}
+
           <div className="p-6 bg-white dark:bg-zinc-900 border dark:border-zinc-800 rounded-xl shadow-sm space-y-4">
             <h2 className="text-xl font-semibold">Asistente Virtual</h2>
             <QuestionBox
@@ -48,6 +54,13 @@ function App() {
           </div>
 
           <AnswerViewer answerData={lastAnswer} />
+
+          {selectedTenant && (
+            <div className="pt-4 border-t dark:border-zinc-800">
+              <h2 className="text-xl font-semibold mb-4">Métricas de Uso</h2>
+              <TenantDashboard key={selectedTenant} tenantId={selectedTenant} />
+            </div>
+          )}
         </div>
       </div>
     </div>

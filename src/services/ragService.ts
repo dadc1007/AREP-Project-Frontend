@@ -1,5 +1,11 @@
 import { axiosClient } from './axiosClient';
-import type { AskRequest, AskResponse } from '../types/api';
+import type { 
+  AskRequest, 
+  AskResponse, 
+  TenantConfig, 
+  UpdateConfigResponse, 
+  TenantMetrics 
+} from '../types/api';
 
 export const ragService = {
   getTenants: async (): Promise<string[]> => {
@@ -21,6 +27,21 @@ export const ragService = {
 
   askQuestion: async (requestData: AskRequest): Promise<AskResponse> => {
     const { data } = await axiosClient.post<AskResponse>('/ask', requestData);
+    return data;
+  },
+
+  getTenantConfig: async (tenantId: string): Promise<TenantConfig> => {
+    const { data } = await axiosClient.get<TenantConfig>(`/tenants/${tenantId}/config`);
+    return data;
+  },
+
+  updateTenantConfig: async (tenantId: string, config: Partial<TenantConfig>): Promise<UpdateConfigResponse> => {
+    const { data } = await axiosClient.put<UpdateConfigResponse>(`/tenants/${tenantId}/config`, config);
+    return data;
+  },
+
+  getTenantMetrics: async (tenantId: string): Promise<TenantMetrics> => {
+    const { data } = await axiosClient.get<TenantMetrics>(`/tenants/${tenantId}/metrics`);
     return data;
   },
 };
