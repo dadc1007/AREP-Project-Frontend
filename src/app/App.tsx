@@ -5,6 +5,7 @@ import { QuestionBox } from "../components/QuestionBox";
 import { AnswerViewer } from "../components/AnswerViewer";
 import { TenantDashboard } from "../components/TenantDashboard";
 import { TenantConfigPanel } from "../components/TenantConfigPanel";
+import { EvaluationDashboard } from "../components/EvaluationDashboard";
 import type { AskResponse } from "../types/api";
 
 function App() {
@@ -61,6 +62,11 @@ function App() {
               <TenantDashboard key={selectedTenant} tenantId={selectedTenant} />
             </div>
           )}
+
+          <div className="pt-8 border-t dark:border-zinc-800">
+            <h2 className="text-2xl font-bold mb-6">Marco de Evaluación</h2>
+            <EvaluationDashboard />
+          </div>
         </div>
       </div>
     </div>

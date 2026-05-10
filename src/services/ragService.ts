@@ -4,7 +4,10 @@ import type {
   AskResponse, 
   TenantConfig, 
   UpdateConfigResponse, 
-  TenantMetrics 
+  TenantMetrics,
+  EvaluationRequest,
+  EvaluationRunResponse,
+  EvaluationResultsResponse
 } from '../types/api';
 
 export const ragService = {
@@ -42,6 +45,16 @@ export const ragService = {
 
   getTenantMetrics: async (tenantId: string): Promise<TenantMetrics> => {
     const { data } = await axiosClient.get<TenantMetrics>(`/tenants/${tenantId}/metrics`);
+    return data;
+  },
+
+  runEvaluation: async (requestData: EvaluationRequest): Promise<EvaluationRunResponse> => {
+    const { data } = await axiosClient.post<EvaluationRunResponse>('/evaluation/run', requestData);
+    return data;
+  },
+
+  getEvaluationResults: async (): Promise<EvaluationResultsResponse> => {
+    const { data } = await axiosClient.get<EvaluationResultsResponse>('/evaluation/results');
     return data;
   },
 };

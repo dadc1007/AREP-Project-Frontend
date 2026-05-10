@@ -5,7 +5,10 @@ import type {
   AskResponse, 
   TenantConfig, 
   UpdateConfigResponse, 
-  TenantMetrics 
+  TenantMetrics,
+  EvaluationRequest,
+  EvaluationRunResponse,
+  EvaluationResultsResponse
 } from '../types/api';
 
 export const useTenants = () => {
@@ -48,5 +51,18 @@ export const useTenantMetrics = (tenantId: string) => {
     queryKey: ['tenant-metrics', tenantId],
     queryFn: () => ragService.getTenantMetrics(tenantId),
     enabled: !!tenantId,
+  });
+};
+
+export const useRunEvaluation = () => {
+  return useMutation<EvaluationRunResponse, Error, EvaluationRequest>({
+    mutationFn: (requestData: EvaluationRequest) => ragService.runEvaluation(requestData),
+  });
+};
+
+export const useEvaluationResults = () => {
+  return useQuery<EvaluationResultsResponse, Error>({
+    queryKey: ['evaluation-results'],
+    queryFn: ragService.getEvaluationResults,
   });
 };

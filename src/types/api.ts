@@ -30,3 +30,34 @@ export interface TenantMetrics {
   tokens_used: number;
   queries_count: number;
 }
+
+export interface EvaluationItem {
+  question: string;
+  expected_answer: string;
+}
+
+export interface EvaluationRequest {
+  dataset: EvaluationItem[];
+}
+
+export interface EvaluationRunResponse {
+  message: string;
+  results: Record<string, {
+    avg_relevance: number;
+    avg_faithfulness: number;
+    avg_time_ms: number;
+  }>;
+}
+
+export interface EvaluationResultItem {
+  id: number;
+  tenant_id: string;
+  avg_relevance: number;
+  avg_faithfulness: number;
+  avg_time_ms: number;
+  timestamp: string;
+}
+
+export interface EvaluationResultsResponse {
+  history: EvaluationResultItem[];
+}
